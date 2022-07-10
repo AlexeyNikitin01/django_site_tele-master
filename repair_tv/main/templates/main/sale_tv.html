@@ -1,0 +1,25 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Б/У телевизор{% endblock %}
+
+{% block content %}
+    <h1 class="h1 text-center">{{ product.model_tv }}</h1>
+    <div class="container text-center">
+        <img src="{% static product.image_tv %}" alt="{{ product.image_tv }}" class="img-fluid">
+    </div>
+    <h2 class="text-right">
+        Цена: {{ product.price_tv }} рублей
+    </h2>
+    <h3>Описание телевизора:</h3>
+    <p class="container mb-5">
+        {{ product.description_tv }}
+    </p>
+
+    <form action="{% url 'cart:cart_add' product.pk %}" method="post">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart">
+    </form>
+{% endblock %}

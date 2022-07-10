@@ -1,0 +1,63 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Корзина
+{% endblock %}
+
+{% block content %}
+    {% if cart %}
+        <h1>Корзина</h1>
+        <table class="cart container-fluid text-center table-bordered">
+            <thead>
+                <tr>
+                    <th>Фото</th>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Удалить</th>
+                    <th>Цена</th>
+                    <th>Итоговая цена</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <tr>
+                        <td>
+                            <a href="{{ product.get_absolute_url }}">
+                                <img class="img-fluid" src="
+                                    {% if product.image_tv %}
+                                        {% static product.image_tv %}
+                                    {% else %}
+                                        {% static 'img/no_image.png' %}
+                                    {% endif %}"
+                                     width="200">
+                            </a>
+                        </td>
+                        <td>{{ product.model_tv }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td><a href="{% url 'cart:cart_remove' product.pk %}">Удалить товар</a></td>
+                        <td class="num">${{ item.price_tv }}</td>
+                        <td class="num">${{ item.total_price_tv }}</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr class="total">
+                <td>Общая цена</td>
+                <td colspan="4"></td>
+                <td class="num">${{ cart.get_total_price }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="text-right">
+            <a href="{% url 'main:sale_tvs' %}" class="button light">Продолжить покупки</a>
+            <a href="#" class="button">Checkout</a>
+        </p>
+    {% else %}
+        <div class="container-fluid text-center">
+            <h1 class="h1">Ваша корзина пуста</h1>
+            <a href="{% url 'main:sale_tvs' %}" class="h3">Начать покупки</a>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container text-center">
+        <h2 class="h2">О сайте</h2>
+        <img alt="AltText" src="{% static 'tm4.jpg' %}" class="img-fluid" width="600">
+    </div>
+    <div>
+        <h3 class="h3">
+            Наша мастерская ...
+        </h3>
+        <p>
+            ... начала работать с 2007 года. <br>
+            По сей день она исправно работает и чинит телевизоры.
+        </p>
+    </div>
+{% endblock %}

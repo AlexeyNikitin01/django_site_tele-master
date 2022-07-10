@@ -1,0 +1,24 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Б/У телевизоры{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for tv in tvs %}
+            <h1 class="h1 text-center">{{ tv.model_tv }}</h1>
+            <div class="container text-center">
+                <img src="{% static tv.image_tv %}" alt="{{ tv.image_tv }}" class="img-fluid">
+            </div>
+            <h2 class="text-right">
+                Цена: {{ tv.price_tv }} рублей
+            </h2>
+            <h3>Описание телевизора:</h3>
+            <p class="container mb-5">
+                {{ tv.description_tv }}
+            </p>
+            <a href="{% url 'main:sale_tv' pk=tv.id slug_tv=tv.slug_tv %}">Подробнее</a>
+        {% endfor %}
+    </div>
+{% endblock %}
