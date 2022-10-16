@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'bootstrap4',
     'main',
     'cart',
+    'orders',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "lyosha-2001@mail.ru"
+EMAIL_HOST_PASSWORD = "UpseWEhWlx1MaeEsQLru"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

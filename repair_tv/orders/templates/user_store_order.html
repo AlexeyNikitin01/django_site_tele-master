@@ -1,0 +1,19 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <table class="table table-hover table-bordered container mt-4">
+      <thead>
+        <tr class="text-center thead-light">
+          <th scope="col">№</th>
+          <th scope="col">Модель</th>
+          <th scope="col">Цена</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        {% for user_product in user_products %}
+
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

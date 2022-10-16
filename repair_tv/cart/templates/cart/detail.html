@@ -52,7 +52,7 @@
         </table>
         <p class="text-right">
             <a href="{% url 'main:sale_tvs' %}" class="button light">Продолжить покупки</a>
-            <a href="#" class="button">Checkout</a>
+            <a href="{% url 'orders:order_create' %}" class="button">Оформить заказ</a>
         </p>
     {% else %}
         <div class="container-fluid text-center">
