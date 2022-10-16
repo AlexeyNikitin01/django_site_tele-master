@@ -1,10 +1,11 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
-from .serializers import RepairOrderSerializer, TVSaleSerializer
+from .serializers import RepairOrderSerializer, TVSaleSerializer, OrderSerializer
 
 from main.models import RepairOrder, TVSale
 from main.forms import RepairOrderForm
+from orders.models import Order
 
 
 class RepairOrderViewSet(ModelViewSet):
@@ -29,3 +30,8 @@ class RepairOrderViewSet(ModelViewSet):
 class TVSaleViewSet(ModelViewSet):
     queryset = TVSale.objects.all()
     serializer_class = TVSaleSerializer
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
