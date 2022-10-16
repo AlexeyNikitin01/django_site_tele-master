@@ -1,0 +1,7 @@
+db.sqlite3
+LG_v3321_s.jpg
+samsung_2k19.jpg
+static/
+__pycache__/
+venv/
+repair_tv/settings.py
