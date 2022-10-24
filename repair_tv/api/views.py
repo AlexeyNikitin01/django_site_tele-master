@@ -1,7 +1,10 @@
+from django.contrib.auth.models import User
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 
-from .serializers import RepairOrderSerializer, TVSaleSerializer, OrderSerializer
+from .serializers import RepairOrderSerializer, TVSaleSerializer, OrderSerializer, UserSerializer
 
 from main.models import RepairOrder, TVSale
 from main.forms import RepairOrderForm
@@ -35,3 +38,9 @@ class TVSaleViewSet(ModelViewSet):
 class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]

@@ -138,3 +138,10 @@ EMAIL_HOST_USER = "lyosha-2001@mail.ru"
 EMAIL_HOST_PASSWORD = "UpseWEhWlx1MaeEsQLru"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

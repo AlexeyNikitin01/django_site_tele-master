@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from rest_framework.serializers import ModelSerializer
 
 from main.models import RepairOrder, TVSale
@@ -27,4 +29,10 @@ class OrderSerializer(ModelSerializer):
 
     class Meta:
         model = Order
+        fields = '__all__'
+
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
         fields = '__all__'
