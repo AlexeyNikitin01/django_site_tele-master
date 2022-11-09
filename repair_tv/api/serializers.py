@@ -4,6 +4,7 @@ from rest_framework.serializers import ModelSerializer
 
 from main.models import RepairOrder, TVSale
 from orders.models import Order, OrderItem
+from tm_user.models import ProfileUser
 
 
 class RepairOrderSerializer(ModelSerializer):
@@ -35,4 +36,10 @@ class OrderSerializer(ModelSerializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+
+class UserProfileSerializer(ModelSerializer):
+    class Meta:
+        model = ProfileUser
         fields = '__all__'

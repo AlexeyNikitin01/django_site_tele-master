@@ -2,15 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.contrib.auth import login, authenticate
 
 from .tasks import repair_order_send_mail
 from .forms import RepairOrderForm
 from .models import TVSale
+
 from cart.forms import CartAddProductForm
+from tm_user.forms import UserSignUpForm, UserSignInForm
 
 
 def index(request):
@@ -31,30 +35,6 @@ def price(request):
 
 def buy_tv(request):
     return render(request, template_name='main/sale_tvs.html')
-
-
-class SignUpView(CreateView):
-    model = User
-    template_name = 'main/register_user.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('register_done')
-
-
-class RegisterDone(TemplateView):
-    template_name = 'main/register_done.html'
-
-
-class LogIn(LoginView):
-    template_name = 'main/login.html'
-
-
-class LogOut(LogoutView):
-    template_name = 'main/logout.html'
-
-
-@login_required
-def profile(request):
-    return render(request, template_name='main/profile.html')
 
 
 def order_done(request):

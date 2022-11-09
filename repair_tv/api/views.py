@@ -1,14 +1,17 @@
 from django.contrib.auth.models import User
+from rest_framework.generics import get_object_or_404
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
-from .serializers import RepairOrderSerializer, TVSaleSerializer, OrderSerializer, UserSerializer
+from .serializers import RepairOrderSerializer, TVSaleSerializer,\
+    OrderSerializer, UserSerializer, UserProfileSerializer
 
 from main.models import RepairOrder, TVSale
 from main.forms import RepairOrderForm
 from orders.models import Order
+from tm_user.models import ProfileUser
 
 
 class RepairOrderViewSet(ModelViewSet):
@@ -44,3 +47,13 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAdminUser]
+
+
+class UserProfileViewSet(ModelViewSet):
+    queryset = ProfileUser.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.user.pk)
+        return Response({'usermname': user.username})
