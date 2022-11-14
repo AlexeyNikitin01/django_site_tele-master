@@ -13,11 +13,15 @@
     {% bootstrap_javascript jquery='slim' %}
 </head>
 <body class="container-fluid">
-    <header>
-        <h1 class="display-1 text-center container mb-4">Телемастерская</h1>
-    </header>
+    <h1 class="display-1 text-center container mb-4 ">Телемастерская</h1>
     <div class="row">
         <ul class="col nav justify-content-end border">
+            <li class="nav-item">
+                <form action="{% url 'searching:search_result' %}" method="get" class="form-inline my-2 my-lg-0">
+                  <input name="q" type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
+                  <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Поиск</button>
+                </form>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'tm_user:register' %}">Регистрация</a>
             </li>
@@ -50,6 +54,13 @@
         <section class="col border ру-2">
             {% bootstrap_messages %}
             {% block content %}
+            {% endblock %}
+        </section>
+    </div>
+    <div>
+        <section class="border ру-2">
+            {% bootstrap_messages %}
+            {% block pagination %}
             {% endblock %}
         </section>
     </div>

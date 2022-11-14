@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'drf_social_oauth2',
     'tm_user',
+    'searching',
 ]
 
 MIDDLEWARE = [
