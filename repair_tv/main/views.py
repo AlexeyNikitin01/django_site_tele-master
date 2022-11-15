@@ -1,10 +1,15 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
 
 from .tasks import repair_order_send_mail
 from .forms import RepairOrderForm
 from .models import TVSale
 
 from cart.forms import CartAddProductForm
+from comment.forms import CommentForm
+
+from comment.models import Comment
 
 
 def index(request):
@@ -56,11 +61,27 @@ def sale_tvs(request):
     return render(request, 'main/sale_tvs.html', contex)
 
 
-def sale_tv(request, pk, slug_tv):
-    product = get_object_or_404(TVSale, pk=pk, slug_tv=slug_tv)
-    cart_product_form = CartAddProductForm()
-    contex = {
-        'product': product,
-        'cart_product_form': cart_product_form,
-    }
-    return render(request, 'main/sale_tv.html', contex)
+class SaleTVView(View):
+    def get(self, request, pk, slug_tv, *args, **kwargs):
+        product = get_object_or_404(TVSale, pk=pk, slug_tv=slug_tv)
+        cart_product_form = CartAddProductForm()
+        comment_form = CommentForm()
+        contex = {
+            'product': product,
+            'cart_product_form': cart_product_form,
+            'comment_form': comment_form,
+        }
+        return render(request, 'main/sale_tv.html', contex)
+
+    def post(self, request, pk, slug_tv):
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            text = request.POST['comment']
+            username = self.request.user
+            product = get_object_or_404(TVSale, pk=pk, slug_tv=slug_tv)
+            comment = Comment.objects.create(com_to_model=product, username=username, comment=text)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        contex = {
+            'comment_form': comment_form,
+        }
+        return render(request, 'main/sale_tv.html', contex)

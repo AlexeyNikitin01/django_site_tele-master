@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
     'tm_user',
     'searching',
+    'comment',
 ]
 
 MIDDLEWARE = [
