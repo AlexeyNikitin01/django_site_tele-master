@@ -13,32 +13,38 @@
     {% bootstrap_javascript jquery='slim' %}
 </head>
 <body class="container-fluid">
-    <header>
-        <h1 class="display-1 text-center container mb-4">Телемастерская</h1>
-    </header>
+    <h1 class="display-1 text-center container mb-4 ">Телемастерская</h1>
     <div class="row">
         <ul class="col nav justify-content-end border">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'main:register' %}">Регистрация</a>
+                <form action="{% url 'searching:search_result' %}" method="get" class="form-inline my-2 my-lg-0">
+                  <input name="q" type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
+                  <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Поиск</button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'tm_user:register' %}">Регистрация</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Профиль</a>
                 <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'tm_user:profile'%}">Профиль</a>
                     <a class="dropdown-item" href="{% url 'cart:cart_detail' %}">Моя корзина</a>
-                    <div class="dropdown-driver"></div>
-                        <a class="dropdown-item" href="{% url 'main:logout' %}">Выйти</a>
+                    <a class="dropdown-item" href="{% url 'orders:user_store_order' %}">Мои покупки</a>
+                    <div class="dropdown-driver border"></div>
+                        <a class="dropdown-item" href="{% url 'tm_user:logout' %}">Выйти</a>
                 </div>
             </li>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'main:login' %}">Войти</a></li>
+            <li class="nav-item"><a href="{% url 'tm_user:login' %}" class="btn btn-outline-dark mr-2">Вход</a></li>
             {% endif %}
         </ul>
     </div>
     <div class="row border">
         <nav class="col-md-auto nav flex-column border">
-            <a class="nav-link root font-weight-bold" href="{% url 'main:about_site_tm' %}">О сайте</a>
+            <a class="nav-link root font-weight-bold" href="{% url 'main:about_site_tm' %}">О нас</a>
             <a class="nav-link root font-weight-bold" href="{% url 'main:index' %}">Главная</a>
             <a class="nav-link root font-weight-bold" href="{% url 'main:contact' %}">Контакты</a>
             <a class="nav-link root font-weight-bold" href="{% url 'main:price' %}">Цены</a>
@@ -48,6 +54,13 @@
         <section class="col border ру-2">
             {% bootstrap_messages %}
             {% block content %}
+            {% endblock %}
+        </section>
+    </div>
+    <div>
+        <section class="border ру-2">
+            {% bootstrap_messages %}
+            {% block pagination %}
             {% endblock %}
         </section>
     </div>

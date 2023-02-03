@@ -1,0 +1,19 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block title %}Спасибо за заказ{% endblock %}
+
+{% block content %}
+    <h1>Спасибо</h1>
+    <p>Ваш заказ:
+        <strong>{{ order.id }}</strong>.</p>
+    <div>
+        {% if order.paid %}
+            ваш заказ оплачен
+        {% else %}
+            ваш заказ не оплачен
+        {% endif %}
+    </div>
+    {{ cart.pk }}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'main:index' %}">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Поиск</li>
+                </ol>
+            </nav>
+            <p class="lead">Найдено записей: {{ count }}</p>
+            {% for result in results %}
+                <a href="{% url 'main:sale_tv' result.pk result.slug_tv %}"><h2>{{ result.model_tv }}</h2></a>
+                <p>{{ result.description_tv|safe }}</p>
+                <img src="{% static result.image_tv %}" alt="{{ result.image_tv }}" class="container-fluid">
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pagination %}
+    <nav aria-label="Paginate me">
+      <ul class="pagination justify-content-center">
+        {% if results.has_previous %}
+          <a class="page-link" href="?page={{ results.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" tabindex="-1">Предыдущая</a>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link disabled" href="#" tabindex="-1">Предыдущая</a>
+        </li>
+        {% endif %}
+        {% for i in results.paginator.page_range %}
+        {% if i == results.number %}
+          <li class="page-item active"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if results.has_next %}
+          <a class="page-link" href="?page={{ results.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Следующая</a>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#">Следующая</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    <br>
+{% endblock %}
