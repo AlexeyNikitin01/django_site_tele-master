@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import config
 
 from pathlib import Path
 
 from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#o@1s=xv2cy78y+qk@d*_9-r_))i7s&c$-uoml@lm^+$gz+40m'
+SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -129,9 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
 STATIC_URL = 'static/'
 
 
@@ -144,12 +144,12 @@ CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 2525
-EMAIL_HOST_USER = "lyosha-2001@mail.ru"
-EMAIL_HOST_PASSWORD = "UpseWEhWlx1MaeEsQLru"
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_HOST = config.SMTP
+EMAIL_PORT = config.PORT
+EMAIL_HOST_USER = config.EMAIL
+EMAIL_HOST_PASSWORD = config.PASSWORD
+EMAIL_USE_TLS = config.USE_TLS
+EMAIL_USE_SSL = config.USE_SSL
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -170,8 +170,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = "51464157"
-SOCIAL_AUTH_VK_OAUTH2_SECRET = "74YnOJ4AXsQKv2mkt51J"
+SOCIAL_AUTH_VK_OAUTH2_KEY = config.VK_KEY
+SOCIAL_AUTH_VK_OAUTH2_SECRET = config.VK_SECRET
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -209,8 +209,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
-# Основной url для управления медиафайлами
+# URL for media files
 MEDIA_URL = '/media/'
 
-# Путь хранения картинок
+# Path save media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

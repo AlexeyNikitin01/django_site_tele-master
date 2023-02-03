@@ -5,5 +5,3 @@ static/
 __pycache__/
 venv/
 config.py
-repair_tv/config.py
-tm/repair_tv/config.py
