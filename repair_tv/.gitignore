@@ -4,4 +4,6 @@ samsung_2k19.jpg
 static/
 __pycache__/
 venv/
-repair_tv/settings.py
+config.py
+repair_tv/config.py
+tm/repair_tv/config.py

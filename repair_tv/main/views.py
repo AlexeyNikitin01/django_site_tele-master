@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
@@ -55,8 +56,12 @@ def repair_order(request):
 
 def sale_tvs(request):
     tvs = TVSale.objects.all()
+    paginator = Paginator(tvs, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     contex = {
-        'tvs': tvs,
+        'results': page_obj,
+        'count': paginator.count,
     }
     return render(request, 'main/sale_tvs.html', contex)
 

@@ -58,7 +58,11 @@ class LogOut(LogoutView):
 
 @login_required
 def profile(request):
-    return render(request, template_name='main/tm_user/profile.html')
+    user = request.user
+    context = {
+        'user': user
+    }
+    return render(request, template_name='main/tm_user/profile.html', context=context)
 
 
 class RegisterDone(TemplateView):

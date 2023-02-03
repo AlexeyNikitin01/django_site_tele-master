@@ -1,5 +1,6 @@
 {% extends "layout/basic.html" %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block content %}
     <table class="table table-hover table-bordered container mt-4">
@@ -12,7 +13,15 @@
       </thead>
       <tbody class="text-center">
         {% for user_product in user_products %}
-
+            <tr>
+              <th scope="row">{{ user_product }}</th>
+              <td>{{ user_product.product }}
+                  <div class="container text-center">
+                    <img src="{% static user_product.product.image_tv %}" height="100" width="100" class="img-fluid">
+                  </div>
+              </td>
+              <td>{{ user_product.price_tv }}</td>
+            </tr>
         {% endfor %}
       </tbody>
     </table>
